@@ -1,0 +1,48 @@
+    <select id="demo" onChange="OpCh()">
+        <option selected value="">==선택==</option>
+        <option value="3000">사과</option>
+        <option value="5000">망고</option>
+        <option value="6000">포도</option>
+    </select>
+
+    <select id="price_fee" onchange="OpCh()">
+        <option selected value="">==선택==</option>
+        <option value="0">무료</option>
+        <option value="2500">선불</option>
+        <option value="5000">제주/산간</option>
+    </select>
+
+    <div class="price_wrap">
+        <p class="myList">
+
+        </p>
+        <p class="mydelivery_fee">
+
+        </p>
+        <span>총 금액</span>
+        <span class="demo"> </span>
+    </div>
+
+    <script>
+        var num = Number(0);
+
+        function OpCh(){
+            var selectName = document.getElementById('demo');
+            var optionContent = selectName.options[selectName.selectedIndex].value;
+            var optionText = selectName.options[selectName.selectedIndex].text;
+
+            //화면에 사용자가 선택한 옵션들 보여줌
+            document.querySelector('.myList').innerHTML+=optionText;
+            document.querySelector('.myList').innerHTML+=optionContent+"<br>";
+            
+            //value값 문자열->숫자로 바꿈
+            var oCnumber = Number(optionContent);
+            console.log(typeof oCnumber)
+            
+            //num 초기값 0에 숫자들을 더해 넣는다.
+            num += oCnumber;
+            console.log(num);
+            //총 금액란에 더해진 숫자들 넣음
+            document.querySelector('.demo').innerHTML = num;
+        }
+    </script>
