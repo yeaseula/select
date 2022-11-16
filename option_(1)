@@ -1,0 +1,82 @@
+  <select id="option_list" onchange="ChangeOp()">
+    <option value="" value2="">==선택==</option>
+    <option value="20평" value2="300000">20평 300000원</option>
+    <option value="30평" value2="500000">30평 500000원</option>
+    <option value="40평" value2="650000">40평 650000원</option>
+  </select>
+
+  <select id="delivery_fee" onchange="ChangeOp()">
+    <option value="" value2="">==선택==</option>
+    <option value="무료" value2="0">무료</option>
+    <option value="선불" value2="2500">2500원</option>
+    <option value="제주/산간" value2="5000">제주/산간</option>
+  </select>
+                
+  <div class="list_wrap mb-25">
+    <p class="t1 nosel ta-c">선택되지 않은 항목이 있습니다.</p>
+    <div class="option_box">
+      <span class="option_blank"></span>
+      <span class="option_blank2"></span>
+    </div>
+    <div class="delivery_box">
+      <span class="option_blank3"></span>
+      <span class="option_blank4"></span>
+    </div>
+  </div>
+  
+  <div class="calculation mt-20">
+    <p class="fs-18 fw-b">총 예상 견적</p>
+    <p class="fw-b"><span class="price_null"></span> 원</p>
+  </div>
+  
+  <script>
+	//옵션 셀렉터
+	var optionList = document.getElementById('option_list');
+	//배송비 셀렉터
+	var deliveryList = document.getElementById('delivery_fee');
+
+	var no_select = document.querySelector('.nosel');
+
+	var num = 0;
+	//총 금액의 초기값
+	document.querySelector('.price_null').innerHTML=num;
+
+	function ChangeOp(){
+
+		//string -> number
+		var optionPrice = optionList.options[optionList.selectedIndex].getAttribute('value2');
+		optionPrice = Number(optionPrice);
+		
+		var delPrice = deliveryList.options[deliveryList.selectedIndex].getAttribute('value2');
+		delPrice = Number(delPrice);
+
+		no_select.style.display="none";
+		//옵션 select
+		document.querySelector('.option_blank').innerHTML= optionList.options[optionList.selectedIndex].value+"<br>";
+		document.querySelector('.option_blank2').innerHTML= optionPrice.toLocaleString()+'원<br>';
+
+		//배송비 select
+		document.querySelector('.option_blank3').innerHTML=deliveryList.options[deliveryList.selectedIndex].value+"<br>";
+		document.querySelector('.option_blank4').innerHTML=delPrice.toLocaleString()+'원<br>';
+
+		//옵션을 ==선택==으로 변경 시 초기화
+		if(optionList.selectedIndex == 0){
+			no_select.style.display="block";
+			document.querySelector('.option_blank').innerHTML = "";
+			document.querySelector('.option_blank2').innerHTML = "";
+		}
+		if(deliveryList.selectedIndex == 0){
+			no_select.style.display="block";
+			document.querySelector('.option_blank3').innerHTML = "";
+			document.querySelector('.option_blank4').innerHTML = "";
+		}
+
+		console.log(document.querySelector('.option_blank2').innerHTML);
+		
+		//숫자계산 후 다시 문자로 변환
+		var PriceResult = optionPrice + delPrice;
+		var PriceResult_comma = PriceResult.toLocaleString();
+		document.querySelector('.price_null').innerHTML = PriceResult_comma;
+	}
+
+</script>
